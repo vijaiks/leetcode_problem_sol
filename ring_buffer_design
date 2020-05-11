@@ -1,4 +1,4 @@
-class MyCircularQueue:
+class RingBuffer:
 
     def __init__(self, k: int):
         """
@@ -66,11 +66,28 @@ class MyCircularQueue:
         """
         return self.count == self.size        
         
-# Your MyCircularQueue object will be instantiated and called as such:
-# obj = MyCircularQueue(k)
-# param_1 = obj.enQueue(value)
-# param_2 = obj.deQueue()
-# param_3 = obj.Front()
-# param_4 = obj.Rear()
-# param_5 = obj.isEmpty()
-# param_6 = obj.isFull()
+
+
+if __name__ == "__main__":	
+	
+	#RingBuffer object is instantiated
+	obj = RingBuffer(5)
+	print(obj.enQueue(3))
+	print(obj.enQueue(2))
+	print(obj.enQueue(1))
+	print(obj.enQueue(4))
+	print(obj.enQueue(5))
+	#Ring --> 5,4,1,2,3
+	print("Is Q Full=", obj.isFull())
+	print(obj.deQueue())
+	print(obj.deQueue())
+	#Ring --> 5,4,1,
+	print(obj.Front())
+	#Ring --> 5,4,1,
+	print(obj.Rear())
+	print(obj.deQueue())
+	print(obj.deQueue())
+	print(obj.deQueue())
+	print(obj.deQueue())
+	print(obj.isEmpty())
+
