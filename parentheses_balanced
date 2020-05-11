@@ -1,0 +1,43 @@
+def isValid(s: str) -> bool:
+        pairs = { '(': ')', '[': ']',  '{': '}' }
+        my_stack = []
+        print(pairs)
+        if s == "":
+            return True
+        openers = pairs.keys()
+        print(openers)     
+        
+        index = 0
+        while index < len(s):
+            symbol = s[index]                  
+            # check if opening symbol then push on stack
+            if symbol in openers:
+                my_stack.append(symbol)
+                print("opening sysmbols:", symbol)
+            
+            # The symbol is a closing brackets    
+            else:  
+                print("closing sysmbols:", symbol)
+                # If check Stack is empty
+                if len(my_stack) == 0:
+                    return False
+                # If check items in the Stack, pop top item  and check open symbol
+                # in dictionary if not, return False as symbols are not balanced.
+                # if same got next symbols from sequence
+                else:
+                    top_item = my_stack.pop()
+                    print("current sysmbol and top item on stack", symbol, top_item)
+                    if symbol != pairs[top_item]:
+                        return False
+
+            index += 1
+
+        if len(my_stack) == 0:
+            return True
+        # Stack is not empty, items are present in stack which is unbalnced
+        return False 
+if __name__ == "__main__":
+	seq1 = "()[]{}"
+	seq2 = "([)]"
+	print(isValid(seq1))
+	print(isValid(seq2))
