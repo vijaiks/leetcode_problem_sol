@@ -1,0 +1,31 @@
+#Iterative code/BST
+def isPerfectSquare(num: int) -> bool:
+        #if num is 1 return as it is perfect sq
+        if num == 1:
+            return True
+        #if num  > 1, use BST to split in to two parts
+        low = 2
+        high = num//2
+        
+        #iterate till low > high
+        while(low <= high):
+            
+            #Pivot point, if perfect sq on this number return from here itself
+            mid = low + (high -low)//2            
+            perfect_sq = mid * mid   
+            if perfect_sq == num:
+                return True
+            
+            #if mid*mid > provided num, then number is in left part else right part
+            if perfect_sq > num:
+                high = mid - 1
+            else:
+                low = mid + 1
+        return False
+
+if __name__ == "__main__":
+	num = 1
+	while num < 101:
+		print (num, "perfect square(True/False)?=>", isPerfectSquare(num))
+		num += 1
+	
