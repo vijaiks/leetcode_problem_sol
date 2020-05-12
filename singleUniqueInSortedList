@@ -1,0 +1,50 @@
+from typing import List
+def singleNonDuplicate(nums: List[int]) -> int:
+        
+        #binary search need to apply to get done in log(n) time 
+        low = 0
+        high = len(nums)-1
+        
+        #boundry condition
+        if len(nums) == 1:
+            return nums[0]        
+        if nums[high] != nums[high-1]:
+            return nums[high]
+        if nums[low] != nums[low+1]:
+            return nums[low] 
+               
+        
+        while (low <= high):            
+            mid = low + (high -low)//2            
+            # check uniqueness on mid element if so return 
+            if nums[mid] != nums[mid+1] and nums[mid]  != nums[mid-1]:
+                return nums[mid]
+            
+            #split the array in to two parts based on mid even/odd property
+            #mid is even, left part is propery sequenced and no disturbance due to unique number
+			#if mid odd and nums[mid-1] == nums[mid] ie. pair is on (even, odd) position is proper
+			#hence check in right parts (low =  mid +2)
+			
+            
+            #if mid is not even and pair is not placed (even, odd)  position (ie. mid%2 ==1 and nums[mid] == nums[mid+1])
+            #then left part is not propery sequenced and hence disturbance due to unique number 
+            #hence check in left parts ( high = mid -1)
+            
+            if mid %2 == 0 and  nums[mid] == nums[mid+1] or mid %2 == 1 and nums[mid] == nums[mid -1]:
+                low = mid + 1
+            else:
+                high = mid - 1
+        
+        return -1
+
+
+#driver function
+if __name__ == "__main__":
+	nums1 = [1,1,2,3,3,4,4,8,8]
+	nums2 = [3,3,7,7,10,11,11]
+	nums3 = [1]
+	nums4 = [1,1,2,2,3,3,4,5,5]
+	print(nums1, "unique num is =", singleNonDuplicate(nums1))
+	print(nums2, "unique num is =", singleNonDuplicate(nums2))
+	print(nums3, "unique num is =", singleNonDuplicate(nums3))
+	print(nums4, "unique num is =", singleNonDuplicate(nums4))
