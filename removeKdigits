@@ -1,0 +1,59 @@
+''' Given a non-negative integer num represented as a string, remove k digits from the number so that the
+new number is the smallest possible.'''
+
+def removeKdigits(num: str, k: int) -> str:
+        # to hold digits
+        stack = []
+        result = ""
+        # push first char
+        stack.append(num[0])
+        # for each char in string, 
+        for index in range(1, len(num)):
+            #char < top of that stack value and k >0 (number of digits to be deleted) 
+            #keep poping the char from stack
+            while len(stack) != 0 and stack[-1] > num[index] and k > 0:
+                stack.pop()
+                k = k-1
+                
+            # if stack is not empty or char is not "0", push on stack
+            if len(stack) != 0 or num[index] != '0':
+                stack.append(num[index])
+                
+        
+        
+        # case to handle char are pushed on stack and stil K is not done,
+        # in that case, pop from stack 
+        while len(stack) != 0 and k !=0:
+            stack.pop()
+            k = k-1
+        
+        # if all char poped out and atck is empty, return 0
+        if len(stack) == 0:            
+            return '0'
+                
+        # get number from top of stack and reverse the string 
+        while len(stack) != 0:
+            result += stack[-1]
+            stack.pop()
+        result = result[::-1]
+        return result
+
+#driver function
+if __name__ == "__main__":
+	nums1 = "9876543210"
+	k1 = 7	
+	nums2 = "1432219"
+	k2 = 3
+	nums3 = "10200"
+	k3 = 1
+	nums4 = "10"
+	k4 = 2
+	nums5 = "12345678987654321"
+	k5 = 9
+	
+	print(nums1, "after removing ", k1,"digits=", removeKdigits(nums1, k1))
+	print(nums2, "after removing ", k2,"digits", removeKdigits(nums2, k2))
+	print(nums3, "after removing ", k3,"digits", removeKdigits(nums3, k3))
+	print(nums4, "after removing ", k4,"digits", removeKdigits(nums4, k4))
+	print(nums5, "after removing ", k5,"digits", removeKdigits(nums5, k5))
+	
