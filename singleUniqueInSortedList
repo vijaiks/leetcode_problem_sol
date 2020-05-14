@@ -20,16 +20,16 @@ def singleNonDuplicate(nums: List[int]) -> int:
             if nums[mid] != nums[mid+1] and nums[mid]  != nums[mid-1]:
                 return nums[mid]
             
-            #split the array in to two parts based on mid even/odd property
-            #mid is even, left part is propery sequenced and no disturbance due to unique number
-			#if mid odd and nums[mid-1] == nums[mid] ie. pair is on (even, odd) position is proper
-			#hence check in right parts (low =  mid +2)
-			
+            #split the array in to two parts based on mid index (even, odd) property >>>>>it is observed that 1st element of pair on odd position and 
+	    #second is on even position
+            #mid is even then check second of the pair on odd (nums[mid] == nums[mid+1])
+	    # then left part is propery sequenced and no disturbance due to unique number
+	    #if mid odd and nums[mid-1] == nums[mid] ie. pair is on (even, odd) proper position
+	    #hence check in right parts (low =  mid +1)			
             
             #if mid is not even and pair is not placed (even, odd)  position (ie. mid%2 ==1 and nums[mid] == nums[mid+1])
-            #then left part is not propery sequenced and hence disturbance due to unique number 
-            #hence check in left parts ( high = mid -1)
-            
+            #then left part is not propery sequenced and disturbance due to unique number 
+            #hence check in left parts ( high = mid -1)            
             if mid %2 == 0 and  nums[mid] == nums[mid+1] or mid %2 == 1 and nums[mid] == nums[mid -1]:
                 low = mid + 1
             else:
