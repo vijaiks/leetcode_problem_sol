@@ -1,0 +1,69 @@
+#define MAX_LEN 100
+class MyHashSet
+{
+
+     vector<int> hash_set[MAX_LEN];   /* Used array to implement Hash Set */
+    
+    /* Returns the corresponding bucket index. */
+    int allocIndex(int key)
+    {
+        return key % MAX_LEN;
+    }   
+    
+    
+     /* Search the key in a specific bucket. Returns -1 if the key does not existed. */
+    int getPos(int key, int index)
+    {
+        // Each bucket contains a list. Iterate all the elements in the bucket to find the target key.
+        for (int i = 0; i < hash_set[index].size(); ++i)
+        {
+            if (hash_set[index][i] == key)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    
+    public:
+      /**Constructor*/
+    MyHashSet(){ }   
+        
+    void add(int key)
+    {
+        int index = allocIndex(key);
+        int pos = getPos(key, index);
+        if (pos < 0) {
+            // Add new key if key does not exist.
+            hash_set[index].push_back(key);
+        }
+        cout<<"index = "<<index<<" key = "<<key<<" bucket size = "<<hash_set[index].size()<<endl;
+    }
+    
+    
+    void remove(int key) {
+        int index = allocIndex(key);
+        int pos = getPos(key, index);
+        if (pos >= 0) {
+            // Remove the key if key exists.
+            hash_set[index].erase(hash_set[index].begin() + pos);
+        }
+        cout<<"index = "<<index<<" key = "<<key<<" bucket size = "<<hash_set[index].size()<<endl;
+    }
+    
+    /** Returns true if this set did not already contain the specified element */
+    bool contains(int key) {
+        int index = allocIndex(key);
+        int pos = getPos(key, index);
+        return pos >= 0;
+    }
+};
+
+/**
+ * Your MyHashSet object will be instantiated and called as such:
+ * MyHashSet* obj = new MyHashSet();
+ * obj->add(key);
+ * obj->remove(key);
+ * bool param_3 = obj->contains(key);
+ */
