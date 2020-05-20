@@ -1,0 +1,48 @@
+from typing import List
+def intersect(nums1: List[int], nums2: List[int]) -> List[int]:
+		#count of nums1 in hashMap
+		hashMap = {}
+		for items in nums1:
+			if items in hashMap:
+				hashMap[items]  += 1
+			else:
+				hashMap[items] = 1
+		#print(hashMap)
+        
+		#count of nums2 in hashMap2        
+		hashMap2 = {}
+		for items in nums2:
+			if items in hashMap2:
+				hashMap2[items] += 1
+			else:
+				hashMap2[items] = 1                
+		#print(hashMap2)
+        
+		#keys list from hashMap ( nums1 count)
+		keys = list(hashMap.keys())
+		#print(keys)
+        
+		# for each key from key list, if keys in hashMap1 ( nums2 count)
+		# if key available in both hashMap, copy min val in final hashMap 
+		#else delete from final hashMap
+		for k in keys:
+			if k in hashMap2:                
+				hashMap[k] = min (hashMap[k], hashMap2[k])
+			else:
+				del hashMap[k]
+        
+		# generate list from final hashMap
+		# retrieve value from keys and append that many keys in final lis
+		# return result
+		result = []
+		for keys in hashMap:
+			val = hashMap[keys]
+			for i in range(val):
+				result.append(keys)
+        
+		return result
+            
+if __name__ == "__main__":
+	nums1 = [4,9,5]
+	nums2 = [9,4,9,8,4]	
+	print(intersect(nums1, nums2))           
