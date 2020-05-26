@@ -1,0 +1,39 @@
+'''
+Given a binary array, find the maximum length of a contiguous subarray with equal number of 0 and 1.
+Example 1: Input: [0,1]
+Output: 2
+Explanation: [0, 1] is the longest contiguous subarray with equal number of 0 and 1.
+Example 2: Input: [0,1,0]
+Output: 2
+'''
+
+from typing import List
+def findMaxLength(nums: List[int]) -> int:
+        count = 0
+        length=0
+		    #hashMap to store sum and index
+        countToIndex = {}
+        for index, num in enumerate(nums, 0):
+            if num == 0:
+                count -= 1
+            else:
+                count += 1
+            
+            if count == 0:
+                if length < index + 1:
+                    length = index + 1            
+            if count in countToIndex:
+                length = max(length, index - countToIndex[count])
+            else:
+                countToIndex[count] = index
+            #print(countToIndex)
+        
+        return length
+   
+#driver function
+if __name__ == "__main__":
+	nums1 = [1,0]	
+	nums2 = [1,0,1]	
+	print(findMaxLength(nums1))
+	print(findMaxLength(nums2))
+	
